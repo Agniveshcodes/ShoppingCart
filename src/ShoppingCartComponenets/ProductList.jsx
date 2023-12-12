@@ -38,6 +38,12 @@ function ProductList() {
         return <Loading />
     }
 
+    if(!product){
+        return <div>
+            product not found 
+        </div>
+  }
+
     return (
         <>
             <div

@@ -9,7 +9,7 @@ import Loading from './Loading';
 
 // product details will be here 
 function ProductDetail({CartCount}) {
-    const[products, setProducts] = useState("")
+    const[products, setProducts] = useState()
     const[count, setCount] = useState(1)
     const[loading , setLoading] = useState(true)
     const id = +useParams().id
@@ -17,12 +17,18 @@ function ProductDetail({CartCount}) {
      useEffect(()=>{
         ProductId(id).then(function(response){
             setProducts(response)
-            setLoading(false)
+            setLoading(false) 
         })
       } ,[id])
 
       if(loading){
         return <Loading />
+      }
+
+      if(!products){
+            return <div>
+                product not found 
+            </div>
       }
 
       if(count < 1) {
