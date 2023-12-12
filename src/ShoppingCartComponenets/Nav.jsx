@@ -18,8 +18,11 @@ function Nav({cartCount}) {
                     </Link>
                 </div>
 
-                <div
-                className=' flex '
+                <Link
+                to={"/cart"}
+                >
+                    <div
+                className=' flex cursor-pointer '
                 >
                         <FaCartPlus
                         className=' text-4xl text-orange-400 '
@@ -28,6 +31,7 @@ function Nav({cartCount}) {
                         className=' text-3xl text-orange-500 font-bold '
                         >{cartCount}</span>
                 </div>
+                </Link>
 
             </div>
         </>

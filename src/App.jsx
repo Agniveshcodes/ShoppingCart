@@ -4,6 +4,7 @@ import ProductList from './ShoppingCartComponenets/ProductList'
 import Nav from './ShoppingCartComponenets/Nav'
 import ProductDetail from './ShoppingCartComponenets/ProductDetail'
 import { Route, Routes } from 'react-router-dom'
+import Cart from './ShoppingCartComponenets/Cart'
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route index element={<ProductList />}></Route>
           <Route path='/productdetail/:id' element={<ProductDetail CartCount = {handleCart} />}></Route>
+          <Route path='/cart' element={<Cart />}></Route>
 
         </Routes>
 
