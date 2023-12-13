@@ -16,12 +16,13 @@ function App() {
   function handleCart (productId , cartCount) {
       const oldCount = cart[productId] || 0 ;
       const newCount = {...cart , [productId] : oldCount + cartCount}
-      console.log(newCount)
-      setCart(newCount)
-      console.log(" cart value is " , cart)
-      const string = JSON.stringify(newCount)
-      localStorage.setItem('my-cart' , string)
+      updateCart(newCount)
   }
+      function updateCart (newCart) {
+        setCart(newCart)
+        const string = JSON.stringify(newCart)
+        localStorage.setItem('my-cart' , string)
+      }
 
     const totalCount = Object.keys(cart).reduce(function(output,current){
       return output + cart[current]
@@ -37,7 +38,7 @@ function App() {
         <Routes>
           <Route index element={<ProductList />}></Route>
           <Route path='/productdetail/:id' element={<ProductDetail CartCount = {handleCart} />}></Route>
-          <Route path='/cart' element={<Cart />}></Route>
+          <Route path='/cart' element={<Cart cart={cart} updateCart={updateCart} />}></Route>
 
         </Routes>
 
