@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // how or product will look is designed here 
-function ProductCard({ thumbnail , title , price , rating , brand , discountPercentage , id  }) {
+function ProductCard({ product  }) {
 
 
     return (
         <>
             <Link
-            to={"/productdetail/" + id }
+            to={"/productdetail/" + product.id }
             >
             <div
             className=' p-2 gap-2 border-black w-60 h-96 flex flex-col flex-start mb-4 cursor-pointer bg-white ml-6 '
@@ -18,17 +18,17 @@ function ProductCard({ thumbnail , title , price , rating , brand , discountPerc
                 >
                     <img 
                     className=' w-full object-cover object-center '
-                    src={thumbnail} alt="" />
+                    src={product.thumbnail} alt="" />
                 </div>
 
                 <div
                 className=' flex flex-col flex-start font-bold text-xl  font-serif'
                 >
-                    <h1> {title} </h1>
-                    <h1> {brand} </h1>
-                    <h1> {rating}* </h1>
-                    <h1> ${price}  </h1>
-                    <h1> {discountPercentage}%  </h1>
+                    <h1> {product.title} </h1>
+                    <h1> {product.brand} </h1>
+                    <h1> {product.rating}* </h1>
+                    <h1> ${product.price}  </h1>
+                    <h1> {product.discountPercentage}%  </h1>
                 </div>
 
                 <div

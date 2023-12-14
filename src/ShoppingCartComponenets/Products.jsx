@@ -7,7 +7,7 @@ function Products({products}) {
         <>
         {
             products.map(function(items , index){
-                return <ProductCard {...items} key={index} />
+                return <ProductCard product={items} key={index} />
             })
         }
          
