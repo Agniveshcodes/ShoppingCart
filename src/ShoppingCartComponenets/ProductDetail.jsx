@@ -74,7 +74,7 @@ function ProductDetail({CartCount}) {
                     className=' mb-2 font-bold '
                     > ${products.price} </h1>
                     <h1
-                    className=' mb-2 text-xl  '
+                    className=' mb-2 text-lg text-orange-500   '
                     > {products.description} </h1>
 
                     <div
