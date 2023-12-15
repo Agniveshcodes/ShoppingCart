@@ -6,7 +6,7 @@ function CartPage({ product , quantity , handleValue , handleRemove }) {
     return ( 
         <>
             <div
-            className=' flex border-2 border-gray-700   py-2 w-180 mx-auto my-3 justify-around items-center rounded-md mb-1 -space-x-4 '
+            className=' flex border-2 border-gray-700   py-2 w-180 mx-auto my-3 justify-around items-center rounded-md mb-1 -space-x-4 hover:bg-yellow-100 cursor-pointer '
             >
                 
                    <button
