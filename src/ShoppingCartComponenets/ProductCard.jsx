@@ -11,7 +11,7 @@ function ProductCard({ product  }) {
             to={"/productdetail/" + product.id }
             >
             <div
-            className=' p-2 gap-2 border-black w-60 h-96 flex flex-col flex-start mb-4 cursor-pointer bg-white ml-6 '
+            className=' p-2 gap-2 border-black w-60 h-96 flex flex-col flex-start mb-4 cursor-pointer bg-white ml-6 shadow-gray-500 shadow-lg'
             >
                 <div
                 className=' w-50 h-60 overflow-hidden '
@@ -28,7 +28,7 @@ function ProductCard({ product  }) {
                     <h1> {product.brand} </h1>
                     <h1> {product.rating}* </h1>
                     <h1> ${product.price}  </h1>
-                    <h1> {product.discountPercentage}%  </h1>
+                    <h1> Free Delivery </h1>
                 </div>
 
                 <div

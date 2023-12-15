@@ -10,6 +10,12 @@ export default {
         200 : "900px",
         180 : "880px",
         10 : "60px"
+      },
+      height : {
+        70 : "280px"
+      },
+      padding : {
+        15 : "60px"
       }
     },
   },
