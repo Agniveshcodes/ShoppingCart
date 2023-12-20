@@ -2,47 +2,59 @@ import React, { useState, useEffect } from 'react';
 import { ProductInfo } from './Api';
 import Products from './Products';
 import Loading from './Loading';
+import Nomatch from './Nomatch';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { range } from "lodash"
 
 // Prdouct list page of the app 
 function ProductList() {
-    const [product, setProduct] = useState([])
-    const[sort, setSort ] = useState("deafult")
-    const[query, setQuery] = useState("")
+    const [productData, setProductData ] = useState()
     const[loading, setLoading] = useState(true)
-    let data = []
+
+
+
+
+    const [ searchParams , setSearchParams ] = useSearchParams()
+
+    const params = Object.fromEntries([...searchParams])
+
+    let { search , page , sort } = params
+
+     page = +page || 1 ; 
+     sort = sort || "default" ;
+     search = search || "" ;
+
+    
+
 
     useEffect(() => {
-        ProductInfo().then(function (response) {
-            console.log(response)
-            setProduct(response)
+
+        let sortType
+        let sortBy
+
+        if( sort == "price"){
+            sortBy = "price"
+            sortType = "desc"
+        }else if(sort == "title"){
+            sortBy = "title"
+        }
+
+
+        ProductInfo( sortBy , search, page , sortType ).then(function (response) {
+            setProductData(response)
             setLoading(false)
         })
-    }, [])
+    }, [ sort , search , page ])
 
-    data = product.filter(function(items){
-        return items.title.toLowerCase().indexOf(query.toLowerCase()) != -1 
-    })
-
-    if( sort === "price"){
-        data.sort(function( x, y ){
-            return  x.price - y.price 
-            
-        })
-    }else if( sort === "title"){
-        data.sort(function(x,y){
-            return x.title < y.title ? -1 : 1 
-        })
-    }
+   
 
     if(loading){
         return <Loading />
     }
 
-    if(!product){
-        return <div>
-            product not found 
-        </div>
-  }
+    console.log(page)
+
+    
 
     return (
         <>
@@ -59,16 +71,16 @@ function ProductList() {
                     type="text" 
                     className=' px-2 py-1 '
                     placeholder='search'
-                    value={query}
+                    value={search}
                     onChange={(e)=>{
-                        setQuery(e.target.value)
+                        setSearchParams({ ...params , search : e.target.value , page: 1 } , {replace :  false})
                     }}
                     />
 
                     <select name="" id=""
                     value={sort}
                     onChange={(e)=>{
-                        setSort(e.target.value)
+                        setSearchParams({...params , sort:e.target.value } , {replace : false})
                     }}
                     className=' px-2 py-1 '
                     >
@@ -85,8 +97,27 @@ function ProductList() {
                       border-2  px-4 py-4 mx-auto '
                 >
                     
-                    <Products products={data} />
+                   { productData.data.length > 0 &&  <Products products={productData.data} />}
+
+                  <div
+                  className=' w-200 items-center flex justify-center'
+                  >
+                     { productData.data.length == 0 && <Nomatch /> } 
+                  </div>
                     
+                </div>
+
+                <div className=' flex bg-white gap-4  p-2 m-2 w-200 mx-auto '>
+                    {
+                        ( range ( 1 , productData.meta.last_page + 1).map(
+                            function( items){
+                                return <Link
+                                to={ '?' + new URLSearchParams({ ...params , page:items }) }
+                                className={' p-2 font-bold text-black rounded-md  ' + ( page === items ? "bg-orange-100" : "bg-orange-500")}
+                                > {items} </Link>
+                            }
+                        ))
+                    }
                 </div>
 
 
@@ -101,4 +132,4 @@ function ProductList() {
     );
 }
 
-export default ProductList;
+export default ProductList
